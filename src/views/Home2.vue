@@ -2,7 +2,6 @@
 
 <template>
   <!-- Color and size to text -->
-
   <div class="home">
     <h1>Homepage</h1>
     <p class="red white--text">
@@ -20,7 +19,6 @@
     <p class="caption">This is a caption</p>
 
     <!-- buttons  -->
-
     <v-btn class="pink white--text">Click me</v-btn>
     <v-btn depressed color="pink">Click me</v-btn>
     <v-btn color="pink" text>Click me</v-btn>
@@ -41,16 +39,41 @@
     </v-btn>
 
     <v-btn fab depressed small dark color="purple">
-      <v-icon>favorite</v-icon>
+      <v-icon>mdi-heart</v-icon>
     </v-btn>
 
     <!-- breakpoints -->
-
     <v-btn class="hidden-xl-and-down">And down</v-btn>
 
     <v-btn class="hidden-md-and-up">And up</v-btn>
 
     <v-btn class="hidden-sm-only">Only</v-btn>
+
+    <!-- grid system -->
+    <v-container class="my-5">
+      <v-row>
+        <v-col md="12" lg="6">
+          <v-btn outlined block color="primary">1</v-btn>
+        </v-col>
+        <v-col md="4" lg="2">
+          <v-btn outlined block color="primary">2</v-btn>
+        </v-col>
+        <v-col md="4" lg="2">
+          <v-btn outlined block color="primary">2</v-btn>
+        </v-col>
+        <v-col md="4" lg="2">
+          <v-btn outlined block color="primary">2</v-btn>
+        </v-col>
+      </v-row>
+      <v-row justify="space-around">
+        <v-col md="4" lg="3">
+          <v-btn outlined block color="success">1</v-btn>
+        </v-col>
+        <v-col md="4" lg="3">
+          <v-btn outlined block color="success">2</v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
 
     <!--  -->
   </div>

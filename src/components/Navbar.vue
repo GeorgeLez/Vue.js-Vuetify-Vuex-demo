@@ -9,13 +9,13 @@
       <v-spacer></v-spacer>
       <v-btn text color="grey">
         <span>Sign Out</span>
-        <v-icon right>exit_to_app</v-icon>
+        <v-icon right>mdi-exit-to-app</v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-navigation-drawer v-model="drawer" app class="primary">
       <v-list>
-        <v-list-item v-for="(link, index) in links" :key="index">
+        <v-list-item v-for="(link, index) in links" :key="index" router :to="link.route">
           <v-list-item-icon>
             <v-icon class="white--text">{{link.icon}}</v-icon>
           </v-list-item-icon>
