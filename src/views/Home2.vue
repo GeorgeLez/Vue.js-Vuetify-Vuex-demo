@@ -83,6 +83,43 @@
 // @ is an alias to /src
 
 export default {
-  name: "Home",
+  data() {
+    return {
+      test: [
+        {
+          title: "Design a new website",
+          person: "Pirate George",
+          due: "1st Jan 2021",
+          status: "ongoing",
+          content:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!",
+        },
+        {
+          title: "Set up the homepage",
+          person: "Chun Li",
+          due: "13th Jan 2020",
+          status: "complete",
+          content:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!",
+        },
+        {
+          title: "Design video thumbnails",
+          person: "Ryu",
+          due: "20th May 2020",
+          status: "complete",
+          content:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!",
+        },
+        {
+          title: "Create a community forum",
+          person: "Gouken",
+          due: "24th Oct 2019",
+          status: "overdue",
+          content:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!",
+        },
+      ],
+    };
+  },
 };
 </script>

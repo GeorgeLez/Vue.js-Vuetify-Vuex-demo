@@ -1,10 +1,7 @@
 <template>
   <v-app>
     <v-main class="grey lighten-4">
-      <Navbar />
-      <!-- <v-container class="mb-4">
-        <router-view></router-view>
-      </v-container>-->
+      <Navbar v-if="$route.name !== 'Login' && $route.name !== 'Register'" />
 
       <router-view></router-view>
     </v-main>

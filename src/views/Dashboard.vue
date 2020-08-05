@@ -2,7 +2,36 @@
   <div class="dashboard">
     <h1 class="mb-4 ml-5 subtitle-1 grey--text">Dashboard</h1>
     <v-container class="my-5">
-      <v-card flat class="px-3" v-for="(project, index) in projects" :key="index">
+      <v-row class="mb-3">
+        <v-tooltip bottom>
+          <template v-slot:activator="{on}">
+            <v-btn small text color="grey" @click="sortBy('title')" v-on="on">
+              <v-icon left small>mdi-folder</v-icon>
+              <span class="caption">By project title</span>
+            </v-btn>
+          </template>
+          <span>Sort projects by project title</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{on}">
+            <v-btn small text color="grey" @click="sortBy('person')" v-on="on">
+              <v-icon left small>mdi-account</v-icon>
+              <span class="caption">By person</span>
+            </v-btn>
+          </template>
+          <span>Sort projects by person name</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{on}">
+            <v-btn small text color="grey" @click="sortBy('due', 'date')" v-on="on">
+              <v-icon left small>mdi-calendar-today</v-icon>
+              <span class="caption">By date</span>
+            </v-btn>
+          </template>
+          <span>Sort projects by date</span>
+        </v-tooltip>
+      </v-row>
+      <v-card v-for="(project, index) in projects" :key="index" flat class="px-3">
         <v-row :class="`pa-3 project ${project.status}`">
           <v-col cols="12" md="6">
             <div class="caption grey--text">Project title</div>
@@ -14,7 +43,7 @@
           </v-col>
           <v-col xs="2">
             <div class="caption grey--text">Due date</div>
-            <div>{{project.due}}</div>
+            <div>{{formattedDate(project.due)}}</div>
           </v-col>
           <v-col xs="2">
             <div class="pr-10 d-flex justify-end">
@@ -30,58 +59,58 @@
 
 <script>
 // @ is an alias to /src
+import db from "@/fb";
+import moment from "moment";
 
 export default {
   data() {
     return {
-      projects: [
-        {
-          title: "Design a new website",
-          person: "Pirate George",
-          due: "1st Jan 2021",
-          status: "ongoing",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!",
-        },
-        {
-          title: "Code up the homepage",
-          person: "Chun Li",
-          due: "13th Jan 2020",
-          status: "complete",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!",
-        },
-        {
-          title: "Design video thumbnails",
-          person: "Ryu",
-          due: "20th May 2020",
-          status: "complete",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!",
-        },
-        {
-          title: "Create a community forum",
-          person: "Gouken",
-          due: "24th Oct 2019",
-          status: "overdue",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt consequuntur eos eligendi illum minima adipisci deleniti, dicta mollitia enim explicabo fugiat quidem ducimus praesentium voluptates porro molestias non sequi animi!",
-        },
-      ],
+      projects: [],
     };
+  },
+  methods: {
+    sortBy(prop, type) {
+      if (type === "date") {
+        this.projects.sort((a, b) => {
+          return new Date(a[prop]) < new Date(b[prop]) ? -1 : 1;
+        });
+      } else {
+        this.projects.sort((a, b) =>
+          a[prop].toLowerCase() < b[prop].toLowerCase() ? -1 : 1
+        );
+      }
+    },
+    formattedDate(item) {
+      return moment(item).format("Do MMM YYYY");
+    },
+  },
+  computed: {},
+  created() {
+    db.collection("projects").onSnapshot((res) => {
+      const changes = res.docChanges();
+
+      changes.forEach((change) => {
+        if (change.type === "added") {
+          this.projects.push({
+            ...change.doc.data(),
+            id: change.doc.id,
+          });
+        }
+      });
+    });
   },
 };
 </script>
 
 <style scoped>
 .project.complete {
-  border-left: 4px solid #3cd1c2;
+  border-left: 8px solid #3cd1c2;
 }
 .project.ongoing {
-  border-left: 4px solid orange;
+  border-left: 8px solid orange;
 }
 .project.overdue {
-  border-left: 4px solid tomato;
+  border-left: 8px solid tomato;
 }
 .v-chip.complete {
   background: #3cd1c2 !important;
