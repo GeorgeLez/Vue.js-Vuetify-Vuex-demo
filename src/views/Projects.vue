@@ -18,7 +18,7 @@
 
 <script>
 // @ is an alias to /src
-import db from "@/fb";
+import { db } from "@/fb";
 import moment from "moment";
 
 export default {

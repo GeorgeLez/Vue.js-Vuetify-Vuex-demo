@@ -2,15 +2,15 @@
   <div class="d-flex justify-center align-center" style="height:100%">
     <v-card width="800px" class="pa-5">
       <v-card-title class="justify-center">
-        <h3>Register</h3>
+        <h3 class="font-weight-light text-uppercase">Register</h3>
       </v-card-title>
       <v-card-text>
-        <v-form>
+        <v-form ref="form" v-model="valid">
           <v-text-field
             v-model="email"
             :rules="emailRules"
             label="E-mail"
-            prepend-icon="mdi-folder"
+            prepend-icon="mdi-email"
             required
             validate-on-blur
           ></v-text-field>
@@ -24,15 +24,16 @@
             counter
             required
             validate-on-blur
-            prepend-icon="mdi-folder"
+            prepend-icon="mdi-lock-open"
             @click:append="show1 = !show1"
           ></v-text-field>
           <v-btn
             :loading="loading"
+            :disabled="!valid"
             text
             color="success"
             class="mx-4 mt-3"
-            @click="submitLogin()"
+            @click="submitRegister()"
           >Register</v-btn>
         </v-form>
       </v-card-text>
@@ -41,13 +42,14 @@
 </template>
 
 <script>
-import auth from "@/fb";
+import { auth } from "@/fb";
 
 export default {
   data() {
     return {
       show1: false,
       loading: false,
+      valid: true,
       email: "",
       emailRules: [
         (v) => !!v || "E-mail is required",
@@ -61,14 +63,17 @@ export default {
     };
   },
   methods: {
-    async submitLogin() {
+    async submitRegister() {
       try {
-        const user = auth.createUserWithEmailAndPassword(
-          this.email,
-          this.password
-        );
-        console.log(user);
-        this.$router.replace({ name: "dashboard" });
+        if (this.$refs.form.validate()) {
+          this.loading = true;
+          const user = await auth.createUserWithEmailAndPassword(
+            this.email,
+            this.password
+          );
+          console.log(user);
+          this.$router.replace({ name: "dashboard" });
+        }
       } catch (err) {
         console.log(err);
       }

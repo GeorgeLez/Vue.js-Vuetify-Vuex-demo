@@ -3,7 +3,7 @@
     <!-- snackbar -->
 
     <v-snackbar v-model="snackbar" :timeout="4000" top color="success">
-      <div class="d-flex align-center">
+      <div class="d-flex align-center justify-space-between">
         <span>You added a new project. Awesome!</span>
         <v-btn class="ml-3" small text color="white" @click="snackbar = false">Close</v-btn>
       </div>
@@ -42,7 +42,7 @@
       </v-menu>
       <!-- end ofdropdown menu -->
 
-      <v-btn text color="grey">
+      <v-btn text color="grey" @click="signOut">
         <span>Sign Out</span>
         <v-icon right>mdi-exit-to-app</v-icon>
       </v-btn>
@@ -72,6 +72,7 @@
 
 <script>
 import Popup from "./Popup";
+import { auth } from "@/fb";
 
 export default {
   components: {
@@ -87,6 +88,17 @@ export default {
       ],
       snackbar: false,
     };
+  },
+  methods: {
+    async signOut() {
+      try {
+        const data = await auth.signOut();
+        console.log(data);
+        this.$router.replace({ name: "Login" });
+      } catch (err) {
+        console.log(err);
+      }
+    },
   },
 };
 </script>

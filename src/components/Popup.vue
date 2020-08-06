@@ -2,7 +2,7 @@
   <div class="text-center pb-4">
     <v-dialog max-width="600px" v-model="dialog">
       <template v-slot:activator="{on}">
-        <v-btn outlined color="white" v-on="on">Add new project</v-btn>
+        <v-btn text class="success" v-on="on">Add new project</v-btn>
       </template>
 
       <!-- adding new project button -->
@@ -11,7 +11,7 @@
           <h3>Add a new project</h3>
         </v-card-title>
         <v-card-text>
-          <v-form class="px-3" ref="form">
+          <v-form class="px-3" ref="form" v-model="valid">
             <v-text-field
               label="Title"
               v-model="title"
@@ -43,7 +43,13 @@
             </v-menu>
             <!-- end of adding new project button -->
 
-            <v-btn :loading="loading" text class="success mx-0 mt-3" @click="submit">Add project</v-btn>
+            <v-btn
+              :loading="loading"
+              :disabled="!valid"
+              text
+              class="success mx-0 mt-3"
+              @click="submit"
+            >Add project</v-btn>
           </v-form>
         </v-card-text>
       </v-card>
@@ -53,7 +59,7 @@
 
 <script>
 import moment from "moment";
-import db from "@/fb";
+import { db } from "@/fb";
 
 export default {
   data() {
@@ -62,6 +68,7 @@ export default {
       title: "",
       content: "",
       due: null,
+      valid: true,
       inputRules: [
         (v) => (v && v.length >= 5) || "Minimum length is 5 characters.",
       ],
@@ -88,9 +95,6 @@ export default {
             this.dialog = false;
             this.$emit("projectAddedNotification");
 
-            // this.title = "";
-            // this.due = "";
-            // this.content = "";
             this.reset();
             this.$refs.form.resetValidation();
           });
