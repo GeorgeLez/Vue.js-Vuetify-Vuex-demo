@@ -1,5 +1,15 @@
 <template>
   <div class="dashboard">
+    <!-- snackbar for login -->
+
+    <v-snackbar @loginGreeting="snackbar=true" v-model="snackbar" :timeout="0" top color="success">
+      <div class="d-flex align-center justify-space-between">
+        <span>Login Greeting. Awesome!</span>
+        <v-btn class="ml-3" small text color="white" @click="snackbar = false">Close</v-btn>
+      </div>
+    </v-snackbar>
+
+    <!-- end of snackbar for login -->
     <h1 class="mb-4 ml-5 subtitle-1 grey--text">Dashboard</h1>
     <v-container class="my-5">
       <v-row class="mb-3">
@@ -66,6 +76,7 @@ export default {
   data() {
     return {
       projects: [],
+      snackbar: false,
     };
   },
   methods: {

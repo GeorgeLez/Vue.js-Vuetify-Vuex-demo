@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-center align-center" style="height:100%">
-    <v-card width="800px" class="pa-5">
+    <v-card width="800px" class="pa-5" elevation="24">
       <v-card-title class="justify-center">
         <h3 class="font-weight-light text-uppercase">Register</h3>
       </v-card-title>
@@ -17,7 +17,7 @@
           <v-text-field
             v-model="password"
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="passwordRules"
+            :rules="[rules.password]"
             :type="show1 ? 'text' : 'password'"
             label="Password"
             hint="At least 6 characters"
@@ -35,6 +35,9 @@
             class="mx-4 mt-3"
             @click="submitRegister()"
           >Register</v-btn>
+          <p class="text-end">
+            <router-link class="text-end" to="/login">Already have an account ?</router-link>
+          </p>
         </v-form>
       </v-card-text>
     </v-card>
@@ -60,6 +63,15 @@ export default {
         (v) => !!v || "Password is required",
         (v) => v.length >= 6 || "Password must be at least 6 characters long",
       ],
+      rules: {
+        password: (value) => {
+          const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
+          return (
+            pattern.test(value) ||
+            "Min. 8 characters with at least one capital letter, a number and a special character."
+          );
+        },
+      },
     };
   },
   methods: {
@@ -72,7 +84,7 @@ export default {
             this.password
           );
           console.log(user);
-          this.$router.replace({ name: "dashboard" });
+          this.$router.replace({ name: "Dashboard" });
         }
       } catch (err) {
         console.log(err);

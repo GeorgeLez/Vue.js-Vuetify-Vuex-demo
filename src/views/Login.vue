@@ -2,15 +2,15 @@
   <div class="pb-0 d-flex justify-center align-center" style="height:100%">
     <!-- snackbar -->
 
-    <v-snackbar v-model="snackbar" :timeout="0" top color="success">
+    <!-- <v-snackbar v-model="snackbar" :timeout="0" top color="success">
       <div class="d-flex align-center justify-space-between">
         <span>Login Greeting. Awesome!</span>
         <v-btn class="ml-3" small text color="white" @click="snackbar = false">Close</v-btn>
       </div>
-    </v-snackbar>
+    </v-snackbar>-->
 
     <!-- end of snackbar -->
-    <v-card width="800px" class="px-5 pt-5" elevation="24">
+    <v-card width="800px" class="pa-5" elevation="24">
       <v-card-title class="justify-center">
         <h3 class="font-weight-light text-uppercase">Login</h3>
       </v-card-title>
@@ -44,9 +44,12 @@
             color="success"
             class="mx-4 mt-3"
             @click="submitLogin()"
-          >Add project</v-btn>
+          >Login</v-btn>
+          <p class="text-end">
+            <router-link class="text-end" to="/register">Need an account ?</router-link>
+          </p>
         </v-form>
-        <p class="text-end">Need an account ?</p>
+
         <p class="error--text text-center ma-3 error-message-caca" v-if="error">{{error.message}}</p>
       </v-card-text>
     </v-card>
@@ -55,6 +58,7 @@
 
 <script>
 import { auth } from "@/fb";
+import { mapActions } from "vuex";
 
 export default {
   data() {
@@ -72,6 +76,7 @@ export default {
         (v) => !!v || "Password is required",
         (v) => v.length >= 6 || "Password must be at least 6 characters long",
       ],
+
       error: "",
       snackbar: true,
     };
@@ -85,10 +90,14 @@ export default {
         );
         console.log(val);
         this.$router.replace({ name: "Dashboard" });
+        // this.$emit("loginGreeting");
       } catch (err) {
         this.error = err;
       }
     },
+    startSnackbar(){
+      ...mapActions(['startSnack'])
+    }
   },
 };
 </script>
