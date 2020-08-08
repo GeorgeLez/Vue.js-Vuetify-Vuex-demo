@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <v-main class="grey lighten-4">
-      <Navbar v-if="$route.name !== 'Login' && $route.name !== 'Register'" />
+      <Navbar
+        v-if="$route.name !== 'Login' && $route.name !== 'Register' && $route.name !== '404'"
+      />
 
       <router-view></router-view>
     </v-main>

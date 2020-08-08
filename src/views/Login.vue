@@ -93,9 +93,6 @@ export default {
   computed: {
     ...mapGetters(["valueOfSnack"]),
   },
-  // mounted() {
-  //   this.$router.push("dashboard");
-  // },
 };
 </script>
 
