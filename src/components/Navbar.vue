@@ -54,7 +54,7 @@
           <v-avatar size="100">
             <img src="/avatar-1.png" alt="User's avatar" />
           </v-avatar>
-          <p class="white--text subtitle-1 mt-3">{{displayName}}</p>
+          <h2 class="white--text mt-3">{{getDisplayName}}</h2>
         </v-col>
       </v-row>
       <Popup @projectAddedNotification="snackbar =true" />
@@ -72,7 +72,8 @@
 
 <script>
 import Popup from "./Popup";
-import { auth, db } from "@/fb";
+import { auth } from "@/fb";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
@@ -100,17 +101,14 @@ export default {
         console.log(err);
       }
     },
+    ...mapActions(["setDisplayName"]),
   },
-  created() {
-    let user = auth.currentUser;
-    let usersRef = db.collection("users");
-
-    usersRef
-      .doc(user.uid)
-      .get()
-      .then((res) => {
-        this.displayName = res.data().name;
-      });
+  computed: {
+    ...mapGetters(["getDisplayName"]),
+  },
+  mounted() {
+    this.setDisplayName();
+    this.displayName = this.getDisplayName;
   },
 };
 </script>

@@ -82,15 +82,18 @@ export default {
           this.password
         );
         console.log("Value from auth success:", val);
-        this.$router.replace({ name: "Dashboard" });
+
+        this.setDisplayName();
 
         this.snackSwitch(true);
+
+        this.$router.replace({ name: "Dashboard" });
       } catch (err) {
         this.error = err;
       }
     },
     //vuex action
-    ...mapActions(["snackSwitch"]),
+    ...mapActions(["snackSwitch", "setDisplayName"]),
   },
   computed: {
     ...mapGetters(["valueOfSnack"]),
