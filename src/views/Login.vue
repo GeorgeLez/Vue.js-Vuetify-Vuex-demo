@@ -5,6 +5,7 @@
         <h3 class="font-weight-light text-uppercase">Login</h3>
       </v-card-title>
       <v-card-text>
+        <!-- adding  lazy-validation to v-form makes button visible from start and only disables/validates-on-blur when there are no requirements met -->
         <v-form ref="form" v-model="valid">
           <v-text-field
             v-model="email"
@@ -23,6 +24,7 @@
             hint="At least 6 characters"
             counter
             required
+            v-on:keyup.enter="submitLogin()"
             validate-on-blur
             prepend-icon="mdi-lock-open"
             @click:append="show1 = !show1"
