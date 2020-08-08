@@ -2,15 +2,16 @@
   <div class="dashboard">
     <!-- snackbar for login -->
 
-    <v-snackbar @loginGreeting="snackbar=true" v-model="snackbar" :timeout="0" top color="success">
+    <!-- <v-snackbar :value="valueOfSnack" @input="snackSwitch" :timeout="2000" top color="success"> -->
+    <v-snackbar v-model="snackbarProccessed" :timeout="2000" top color="success">
       <div class="d-flex align-center justify-space-between">
         <span>Login Greeting. Awesome!</span>
         <v-btn class="ml-3" small text color="white" @click="snackbar = false">Close</v-btn>
       </div>
     </v-snackbar>
-
     <!-- end of snackbar for login -->
     <h1 class="mb-4 ml-5 subtitle-1 grey--text">Dashboard</h1>
+
     <v-container class="my-5">
       <v-row class="mb-3">
         <v-tooltip bottom>
@@ -71,6 +72,7 @@
 // @ is an alias to /src
 import { db } from "@/fb";
 import moment from "moment";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
@@ -94,8 +96,22 @@ export default {
     formattedDate(item) {
       return moment(item).format("Do MMM YYYY");
     },
+    ...mapActions(["snackSwitch"]),
   },
-  computed: {},
+  computed: {
+    ...mapGetters(["valueOfSnack"]),
+    snackbarProccessed: {
+      get() {
+        return this.valueOfSnack;
+      },
+      set(param) {
+        this.snackSwitch(param);
+      },
+      // snackbarProccessed = false
+      // testVar = snackbarProccessed
+    },
+  },
+
   created() {
     db.collection("projects").onSnapshot((res) => {
       const changes = res.docChanges();

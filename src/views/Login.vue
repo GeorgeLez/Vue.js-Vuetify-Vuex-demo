@@ -1,15 +1,5 @@
 <template>
-  <div class="pb-0 d-flex justify-center align-center" style="height:100%">
-    <!-- snackbar -->
-
-    <!-- <v-snackbar v-model="snackbar" :timeout="0" top color="success">
-      <div class="d-flex align-center justify-space-between">
-        <span>Login Greeting. Awesome!</span>
-        <v-btn class="ml-3" small text color="white" @click="snackbar = false">Close</v-btn>
-      </div>
-    </v-snackbar>-->
-
-    <!-- end of snackbar -->
+  <div class="d-flex justify-center align-center" style="height:100%">
     <v-card width="800px" class="pa-5" elevation="24">
       <v-card-title class="justify-center">
         <h3 class="font-weight-light text-uppercase">Login</h3>
@@ -59,6 +49,7 @@
 <script>
 import { auth } from "@/fb";
 import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -88,17 +79,23 @@ export default {
           this.email,
           this.password
         );
-        console.log(val);
+        console.log("Value from auth success:", val);
         this.$router.replace({ name: "Dashboard" });
-        // this.$emit("loginGreeting");
+
+        this.snackSwitch(true);
       } catch (err) {
         this.error = err;
       }
     },
-    startSnackbar(){
-      ...mapActions(['startSnack'])
-    }
+    //vuex action
+    ...mapActions(["snackSwitch"]),
   },
+  computed: {
+    ...mapGetters(["valueOfSnack"]),
+  },
+  // mounted() {
+  //   this.$router.push("dashboard");
+  // },
 };
 </script>
 

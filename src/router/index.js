@@ -6,6 +6,7 @@ import Team from "../views/Team";
 import Login from "../views/Login";
 import Register from "../views/Register";
 import { auth } from "@/fb";
+import InvalidRoute from "../components/InvalidRoute";
 
 Vue.use(VueRouter);
 
@@ -45,6 +46,11 @@ const routes = [
     name: "Register",
     component: Register,
   },
+  {
+    path: "/404",
+    name: "404",
+    component: InvalidRoute,
+  },
 ];
 
 const router = new VueRouter({
@@ -56,8 +62,19 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   const isAuthenticated = auth.currentUser;
-  if (requiresAuth && !isAuthenticated) {
-    next("/login");
+
+  // if (requiresAuth && !isAuthenticated) {
+  //   next("/login");
+  // } else {
+  //   next();
+  // }
+
+  if (requiresAuth) {
+    if (isAuthenticated) {
+      next();
+    } else {
+      next("/login");
+    }
   } else {
     next();
   }
