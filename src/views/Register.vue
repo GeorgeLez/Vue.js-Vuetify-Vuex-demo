@@ -50,6 +50,7 @@
             <router-link class="text-end" to="/login">Already have an account ?</router-link>
           </p>
         </v-form>
+        <p class="error--text text-center ma-3 error-message-caca" v-if="error">{{error.message}}</p>
       </v-card-text>
     </v-card>
   </div>
@@ -64,6 +65,7 @@ export default {
       show1: false,
       loading: false,
       valid: true,
+      error: "",
       name: "",
       email: "",
       emailRules: [
@@ -95,7 +97,7 @@ export default {
             .createUserWithEmailAndPassword(this.email, this.password)
             .then((res) => {
               db.collection("users").doc(res.user.uid).set({
-                bio: this.name,
+                name: this.name,
               });
             });
           // .then(()=>{});
@@ -103,7 +105,7 @@ export default {
           this.$router.replace({ name: "Dashboard" });
         }
       } catch (err) {
-        console.log(err);
+        this.error = err;
       }
     },
   },
