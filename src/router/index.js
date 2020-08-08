@@ -57,8 +57,8 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log("asta e to:", to);
-  console.log("asta e from:", from);
+  // console.log("asta e to:", to);
+  // console.log("asta e from:", from);
 
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   const requiresTest = to.matched.some((record) => record.meta.requiresTest);
@@ -66,28 +66,28 @@ router.beforeEach((to, from, next) => {
 
   if (to.name) {
     if (requiresAuth) {
-      console.log("requiresAuth");
+      // console.log("requiresAuth");
       if (isAuthenticated) {
-        console.log("isAuthenticated");
+        // console.log("isAuthenticated");
         next();
       } else {
         next("/login");
       }
     } else {
       if (requiresTest) {
-        console.log("requiresTest");
+        // console.log("requiresTest");
         if (
           (to.name == "Login" && isAuthenticated) ||
           (to.name == "Register" && isAuthenticated)
         ) {
-          console.log("Works");
+          // console.log("Works");
           next("/dashboard");
         } else {
-          console.log("else");
+          // console.log("else");
           next();
         }
       } else {
-        console.log("final final final");
+        // console.log("final final final");
         next();
       }
     }
@@ -96,7 +96,7 @@ router.beforeEach((to, from, next) => {
     //   next("/404");
     // }
   } else {
-    console.log("404");
+    // console.log("404");
     next("/404");
   }
 

@@ -7,6 +7,15 @@
       <v-card-text>
         <v-form ref="form" v-model="valid">
           <v-text-field
+            v-model="name"
+            :rules="nameErrors"
+            label="Name"
+            prepend-icon="mdi-account"
+            required
+            :counter="10"
+            validate-on-blur
+          ></v-text-field>
+          <v-text-field
             v-model="email"
             :rules="emailRules"
             label="E-mail"
@@ -24,9 +33,11 @@
             counter
             required
             validate-on-blur
+            v-on:keyup.enter="submitRegister()"
             prepend-icon="mdi-lock-open"
             @click:append="show1 = !show1"
           ></v-text-field>
+
           <v-btn
             :loading="loading"
             :disabled="!valid"
@@ -45,7 +56,7 @@
 </template>
 
 <script>
-import { auth } from "@/fb";
+import { auth, db } from "@/fb";
 
 export default {
   data() {
@@ -53,22 +64,23 @@ export default {
       show1: false,
       loading: false,
       valid: true,
+      name: "",
       email: "",
       emailRules: [
         (v) => !!v || "E-mail is required",
         (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
       password: "",
-      passwordRules: [
-        (v) => !!v || "Password is required",
-        (v) => v.length >= 6 || "Password must be at least 6 characters long",
+      nameErrors: [
+        (v) => !!v || "Name is required",
+        (v) => v.length <= 10 || "Name must be at most 10 characters long",
       ],
       rules: {
         password: (value) => {
           const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
           return (
             pattern.test(value) ||
-            "Min. 8 characters with at least one capital letter, a number and a special character."
+            "Min. 8 characters with at least one capital letter, a number and a special character"
           );
         },
       },
@@ -79,10 +91,14 @@ export default {
       try {
         if (this.$refs.form.validate()) {
           this.loading = true;
-          const user = await auth.createUserWithEmailAndPassword(
-            this.email,
-            this.password
-          );
+          const user = await auth
+            .createUserWithEmailAndPassword(this.email, this.password)
+            .then((res) => {
+              db.collection("users").doc(res.user.uid).set({
+                bio: this.name,
+              });
+            });
+          // .then(()=>{});
           console.log(user);
           this.$router.replace({ name: "Dashboard" });
         }
