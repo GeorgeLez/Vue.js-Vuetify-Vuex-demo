@@ -172,11 +172,13 @@ export default {
                 photoURL: this.photo,
                 phoneNumber: this.role,
               });
-
-              auth.signOut();
+              console.log(user);
+              setTimeout(() => {
+                auth.signOut();
+              }, 1000);
             });
           // .then(()=>{});
-          console.log(user);
+
           setTimeout(() => {
             this.$router.replace({ name: "Dashboard" });
           }, 1000);

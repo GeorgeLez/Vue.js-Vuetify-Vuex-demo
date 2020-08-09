@@ -29,15 +29,12 @@
 </template>
 
 <script>
+import { db } from "@/fb";
+
 export default {
   data() {
     return {
       team: [
-        {
-          name: "Pirate George",
-          role: "Web developer",
-          avatar: "/PirateSvg.png",
-        },
         { name: "Ryu", role: "Graphic designer", avatar: "/avatar-2.png" },
         { name: "Chun Li", role: "Web developer", avatar: "/avatar-3.png" },
         {
@@ -48,6 +45,18 @@ export default {
         { name: "Yoshi", role: "Sales guru", avatar: "/avatar-5.png" },
       ],
     };
+  },
+  created() {
+    db.collection("users").onSnapshot((res) => {
+      const changes = res.docChanges();
+
+      changes.forEach((change) => {
+        this.team.push({
+          ...change.doc.data(),
+          id: change.doc.id,
+        });
+      });
+    });
   },
 };
 </script>
