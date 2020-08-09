@@ -38,11 +38,22 @@
             @click:append="show1 = !show1"
           ></v-text-field>
 
+          <!-- <v-container> -->
+          <v-select
+            v-model="role"
+            prepend-icon="mdi-briefcase"
+            :items="items"
+            :rules="[v => !!v || 'Role is required']"
+            label="Role"
+            required
+          ></v-select>
+          <!-- </v-container> -->
+
           <v-container>
             <div class="d-flex justify-space-around">
               <v-checkbox
                 color="primary"
-                v-model="selected"
+                v-model="photo"
                 value="/PirateSvg.png"
                 :rules="[v => !!v || 'You must agree to continue!']"
                 label="Are you a Pirate?"
@@ -50,7 +61,7 @@
               ></v-checkbox>
 
               <v-checkbox
-                v-model="selected"
+                v-model="photo"
                 color="error"
                 value="/FairySvg.png"
                 :rules="[v => !!v || 'You must agree to continue!']"
@@ -108,9 +119,16 @@ export default {
   data() {
     return {
       show1: false,
-      selected: "",
+      photo: "",
       loading: false,
       valid: true,
+      role: "",
+      items: [
+        "Web developer",
+        "Graphic designer",
+        "Social media maverik",
+        "Sales guru",
+      ],
       error: "",
       name: "",
       email: "",
@@ -144,12 +162,15 @@ export default {
             .then((res) => {
               db.collection("users").doc(res.user.uid).set({
                 name: this.name,
+                role: this.role,
+                avatar: this.photo,
               });
 
               let userx = auth.currentUser;
               userx.updateProfile({
                 displayName: this.name,
-                photoURL: this.selected,
+                photoURL: this.photo,
+                phoneNumber: this.role,
               });
 
               auth.signOut();
