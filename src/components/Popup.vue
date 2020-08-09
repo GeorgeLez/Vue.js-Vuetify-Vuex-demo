@@ -107,6 +107,20 @@ export default {
             this.$refs.form.resetValidation();
           });
 
+        //  adds projects in a collection of a user UID key (unable to get them)
+        // db.collection("projects")
+        //   .doc(userx.uid)
+        //   .collection("userProjects")
+        //   .add(project)
+        //   .then(() => {
+        //     this.loading = false;
+        //     this.dialog = false;
+        //     this.$emit("projectAddedNotification");
+
+        //     this.reset();
+        //     this.$refs.form.resetValidation();
+        //   });
+
         // db.collection("projects")
         //   .add(project)
         //   .then(() => {
