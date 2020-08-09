@@ -154,7 +154,9 @@ export default {
             });
           // .then(()=>{});
           console.log(user);
-          this.$router.replace({ name: "Dashboard" });
+          setTimeout(() => {
+            this.$router.replace({ name: "Dashboard" });
+          }, 1000);
         }
       } catch (err) {
         this.error = err;
