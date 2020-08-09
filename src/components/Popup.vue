@@ -82,6 +82,7 @@ export default {
         this.loading = true;
 
         let tempName = auth.currentUser.displayName;
+        let tempUid = auth.currentUser.uid;
 
         const project = {
           title: this.title,
@@ -89,6 +90,7 @@ export default {
           due: this.due,
           person: tempName,
           status: "ongoing",
+          uid: tempUid,
         };
 
         // let userx = auth.currentUser;
