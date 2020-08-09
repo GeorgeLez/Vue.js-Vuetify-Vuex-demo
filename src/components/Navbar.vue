@@ -52,7 +52,7 @@
       <v-row>
         <v-col align="center" class="mt-5">
           <v-avatar size="100">
-            <img src="/avatar-1.png" alt="User's avatar" />
+            <img src="/PirateSvg.png" alt="User's avatar" />
           </v-avatar>
           <!-- accessing display name directly from user and not getting it with getters/actions from the database -->
           <h2 class="white--text mt-3">{{xxdisplayNamexx}}</h2>

@@ -36,7 +36,7 @@ export default {
         {
           name: "Pirate George",
           role: "Web developer",
-          avatar: "/avatar-1.png",
+          avatar: "/PirateSvg.png",
         },
         { name: "Ryu", role: "Graphic designer", avatar: "/avatar-2.png" },
         { name: "Chun Li", role: "Web developer", avatar: "/avatar-3.png" },
