@@ -60,7 +60,7 @@
 <script>
 import moment from "moment";
 import { db, auth } from "@/fb";
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -81,7 +81,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
 
-        let tempName = this.getDisplayName;
+        let tempName = auth.currentUser.displayName;
 
         const project = {
           title: this.title,
@@ -124,7 +124,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getDisplayName"]),
+    // ...mapGetters(["getDisplayName"]),
     formatDate() {
       return this.due ? moment(this.due).format("Do MMMM YYYY") : "";
     },

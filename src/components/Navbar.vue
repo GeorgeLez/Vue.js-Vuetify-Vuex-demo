@@ -75,7 +75,7 @@
 <script>
 import Popup from "./Popup";
 import { auth } from "@/fb";
-import { mapGetters, mapActions } from "vuex";
+// import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
@@ -85,7 +85,7 @@ export default {
     return {
       drawer: false,
       error: "",
-      displayName: "",
+      // displayName: "",
       xxdisplayNamexx: auth.currentUser.displayName,
       links: [
         { icon: "mdi-view-dashboard", text: "Dashboard", route: "/" },
@@ -105,15 +105,15 @@ export default {
         console.log("this is err from signOut - ignore: ", err);
       }
     },
-    ...mapActions(["setDisplayName"]),
+    // ...mapActions(["setDisplayName"]),
   },
   computed: {
-    ...mapGetters(["getDisplayName"]),
+    // ...mapGetters(["getDisplayName"]),
   },
-  mounted() {
-    this.setDisplayName();
-    this.displayName = this.getDisplayName;
-  },
+  // mounted() {
+  //   this.setDisplayName();
+  //   this.displayName = this.getDisplayName;
+  // },
 };
 </script>
 
