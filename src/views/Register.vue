@@ -38,6 +38,49 @@
             @click:append="show1 = !show1"
           ></v-text-field>
 
+          <v-container>
+            <div class="d-flex justify-space-around">
+              <v-checkbox
+                v-model="selected"
+                value="/PirateSvg.png"
+                :rules="[v => !!v || 'You must agree to continue!']"
+                label="Are you a Pirate?"
+                required
+              ></v-checkbox>
+
+              <v-checkbox
+                v-model="selected"
+                value="/FairySvg.png"
+                :rules="[v => !!v || 'You must agree to continue!']"
+                label="Are you a Fairy?"
+                required
+              ></v-checkbox>
+            </div>
+          </v-container>
+
+          <!-- cards with images for pirate/fairy -->
+          <!-- <v-container>
+            <v-row dense>
+              <v-col cols="6">
+                <v-card max-width="100" class="mx-auto">
+                  <v-img src="/PirateSvg.png" height="100" width="100" class="align-end"></v-img>
+                  <v-card-title class="py-0">
+                    <span class="mx-auto">Pirate</span>
+                  </v-card-title>
+                </v-card>
+              </v-col>
+              <v-col cols="6">
+                <v-card max-width="100" class="mx-auto">
+                  <v-img src="/FairySvg.png" height="100" width="100" class="align-end"></v-img>
+                  <v-card-title class="pa-0">
+                    <span class="mx-auto">Fairy</span>
+                  </v-card-title>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>-->
+          <!-- end of cards with images for pirate/fairy -->
+
           <v-btn
             :loading="loading"
             :disabled="!valid"
@@ -63,6 +106,7 @@ export default {
   data() {
     return {
       show1: false,
+      selected: "",
       loading: false,
       valid: true,
       error: "",
@@ -100,10 +144,13 @@ export default {
                 name: this.name,
               });
 
-              let user = auth.currentUser;
-              user.updateProfile({
+              let userx = auth.currentUser;
+              userx.updateProfile({
                 displayName: this.name,
+                photoURL: this.selected,
               });
+
+              auth.signOut();
             });
           // .then(()=>{});
           console.log(user);

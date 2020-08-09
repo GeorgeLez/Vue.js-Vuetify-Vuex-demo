@@ -35,7 +35,7 @@ export default {
   computed: {
     myProjects() {
       let userx = auth.currentUser.uid;
-      console.log(userx);
+      // console.log(userx);
 
       return this.projects.filter((project) => {
         return project.uid === userx;

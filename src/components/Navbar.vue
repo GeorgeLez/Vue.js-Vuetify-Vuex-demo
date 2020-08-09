@@ -52,10 +52,10 @@
       <v-row>
         <v-col align="center" class="mt-5">
           <v-avatar size="100">
-            <img src="/PirateSvg.png" alt="User's avatar" />
+            <img :src="userImage" alt="User's avatar" />
           </v-avatar>
           <!-- accessing display name directly from user and not getting it with getters/actions from the database -->
-          <h2 class="white--text mt-3">{{xxdisplayNamexx}}</h2>
+          <h2 class="white--text mt-3">{{displayName}}</h2>
           <!-- <h2 class="white--text mt-3">{{getDisplayName}}</h2> -->
         </v-col>
       </v-row>
@@ -85,8 +85,8 @@ export default {
     return {
       drawer: false,
       error: "",
-      // displayName: "",
-      xxdisplayNamexx: auth.currentUser.displayName,
+      displayName: auth.currentUser.displayName,
+      userImage: auth.currentUser.photoURL,
       links: [
         { icon: "mdi-view-dashboard", text: "Dashboard", route: "/" },
         { icon: "mdi-folder", text: "My Projects", route: "/projects" },
@@ -110,10 +110,17 @@ export default {
   computed: {
     // ...mapGetters(["getDisplayName"]),
   },
-  // mounted() {
-  //   this.setDisplayName();
-  //   this.displayName = this.getDisplayName;
+  // created() {
+  //   this.displayName = auth.currentUser.displayName;
+  //   this.userImage = auth.currentUser.photoURL;
   // },
+  mounted() {
+    this.displayName = auth.currentUser.displayName;
+    this.userImage = auth.currentUser.photoURL;
+
+    // this.setDisplayName();
+    // this.displayName = this.getDisplayName;
+  },
 };
 </script>
 
