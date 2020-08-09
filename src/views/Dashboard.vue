@@ -70,7 +70,7 @@
 
 <script>
 // @ is an alias to /src
-import { db } from "@/fb";
+import { db, auth } from "@/fb";
 import moment from "moment";
 import { mapGetters, mapActions } from "vuex";
 
@@ -111,6 +111,25 @@ export default {
   },
 
   created() {
+    let userx = auth.currentUser;
+
+    db.collection("projects")
+      .doc(userx.uid)
+      .collection("userProjects")
+      .onSnapshot((res) => {
+        const changes = res.docChanges();
+        // console.log(changes);
+
+        changes.forEach((change) => {
+          if (change.type === "added") {
+            this.projects.push({
+              ...change.doc.data(),
+              id: change.doc.id,
+            });
+          }
+        });
+      });
+
     db.collection("projects").onSnapshot((res) => {
       const changes = res.docChanges();
 

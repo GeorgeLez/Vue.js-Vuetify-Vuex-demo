@@ -95,10 +95,10 @@ export default {
     async signOut() {
       try {
         const data = await auth.signOut();
-        console.log(data);
+        console.log("this is data from signOut - ignore: ", data);
         this.$router.replace({ name: "Login" });
       } catch (err) {
-        console.log(err);
+        console.log("this is err from signOut - ignore: ", err);
       }
     },
     ...mapActions(["setDisplayName"]),
