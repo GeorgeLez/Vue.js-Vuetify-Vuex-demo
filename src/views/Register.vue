@@ -99,6 +99,11 @@ export default {
               db.collection("users").doc(res.user.uid).set({
                 name: this.name,
               });
+
+              let user = auth.currentUser;
+              user.updateProfile({
+                displayName: this.name,
+              });
             });
           // .then(()=>{});
           console.log(user);
@@ -106,6 +111,8 @@ export default {
         }
       } catch (err) {
         this.error = err;
+        this.loading = false;
+        this.$refs.form.reset();
       }
     },
   },
