@@ -3,10 +3,10 @@
     <!-- snackbar for login -->
 
     <!-- <v-snackbar :value="valueOfSnack" @input="snackSwitch" :timeout="2000" top color="success"> -->
-    <v-snackbar v-model="snackbarProccessed" :timeout="6000" top color="success">
+    <v-snackbar v-model="snackbarProccessed" :timeout="5000" top color="success">
       <div class="d-flex align-center justify-space-around">
-        <h3>Greetings, {{getDisplayName}}</h3>
-        <v-btn class="ml-3" text color="white" @click="snackbar = false">Close</v-btn>
+        <h3>Greetings, {{getDisplayName}} !</h3>
+        <v-btn class="ml-3" text color="white" @click="snackSwitch(false);">Close</v-btn>
       </div>
     </v-snackbar>
     <!-- end of snackbar for login -->
