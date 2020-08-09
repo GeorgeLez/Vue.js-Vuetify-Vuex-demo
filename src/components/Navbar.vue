@@ -54,7 +54,9 @@
           <v-avatar size="100">
             <img src="/avatar-1.png" alt="User's avatar" />
           </v-avatar>
-          <h2 class="white--text mt-3">{{getDisplayName}}</h2>
+          <!-- accessing display name directly from user and not getting it with getters/actions from the database -->
+          <h2 class="white--text mt-3">{{xxdisplayNamexx}}</h2>
+          <!-- <h2 class="white--text mt-3">{{getDisplayName}}</h2> -->
         </v-col>
       </v-row>
       <Popup @projectAddedNotification="snackbar =true" />
@@ -82,7 +84,9 @@ export default {
   data() {
     return {
       drawer: false,
+      error: "",
       displayName: "",
+      xxdisplayNamexx: auth.currentUser.displayName,
       links: [
         { icon: "mdi-view-dashboard", text: "Dashboard", route: "/" },
         { icon: "mdi-folder", text: "My Projects", route: "/projects" },
