@@ -41,6 +41,7 @@
           <v-container>
             <div class="d-flex justify-space-around">
               <v-checkbox
+                color="primary"
                 v-model="selected"
                 value="/PirateSvg.png"
                 :rules="[v => !!v || 'You must agree to continue!']"
@@ -50,6 +51,7 @@
 
               <v-checkbox
                 v-model="selected"
+                color="error"
                 value="/FairySvg.png"
                 :rules="[v => !!v || 'You must agree to continue!']"
                 label="Are you a Fairy?"
