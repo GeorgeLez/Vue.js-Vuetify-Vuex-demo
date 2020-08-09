@@ -91,21 +91,8 @@ export default {
           status: "ongoing",
         };
 
-        let userx = auth.currentUser;
+        // let userx = auth.currentUser;
         // console.log("this is userx: ", userx);
-
-        db.collection("projects")
-          .doc(userx.uid)
-          .collection("userProjects")
-          .add(project)
-          .then(() => {
-            this.loading = false;
-            this.dialog = false;
-            this.$emit("projectAddedNotification");
-
-            this.reset();
-            this.$refs.form.resetValidation();
-          });
 
         //  adds projects in a collection of a user UID key (unable to get them)
         // db.collection("projects")
@@ -121,16 +108,16 @@ export default {
         //     this.$refs.form.resetValidation();
         //   });
 
-        // db.collection("projects")
-        //   .add(project)
-        //   .then(() => {
-        //     this.loading = false;
-        //     this.dialog = false;
-        //     this.$emit("projectAddedNotification");
+        db.collection("projects")
+          .add(project)
+          .then(() => {
+            this.loading = false;
+            this.dialog = false;
+            this.$emit("projectAddedNotification");
 
-        //     this.reset();
-        //     this.$refs.form.resetValidation();
-        //   });
+            this.reset();
+            this.$refs.form.resetValidation();
+          });
       }
     },
     reset() {
