@@ -18,7 +18,7 @@
 
 <script>
 // @ is an alias to /src
-import { db } from "@/fb";
+import { db, auth } from "@/fb";
 import moment from "moment";
 
 export default {
@@ -34,8 +34,11 @@ export default {
   },
   computed: {
     myProjects() {
+      let userx = auth.currentUser.uid;
+      console.log(userx);
+
       return this.projects.filter((project) => {
-        return project.person === "Pirate George";
+        return project.uid === userx;
       });
     },
   },
