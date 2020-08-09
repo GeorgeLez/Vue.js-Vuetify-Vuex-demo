@@ -15,7 +15,7 @@ export default new Vuex.Store({
       return valuex;
     },
     getDisplayName(state) {
-      console.log("test", state.displayName);
+      // console.log("test", state.displayName);
       return state.displayName;
     },
   },
@@ -30,7 +30,7 @@ export default new Vuex.Store({
         .get()
         .then((res) => {
           state.displayName = res.data().name;
-          console.log(state.displayName);
+          // console.log(state.displayName);
         });
     },
   },

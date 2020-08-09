@@ -59,7 +59,8 @@
 
 <script>
 import moment from "moment";
-import { db } from "@/fb";
+import { db, auth } from "@/fb";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -80,15 +81,22 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
 
+        let tempName = this.getDisplayName;
+
         const project = {
           title: this.title,
           content: this.content,
           due: this.due,
-          person: "Pirate George",
+          person: tempName,
           status: "ongoing",
         };
 
+        let userx = auth.currentUser;
+        // console.log("this is userx: ", userx);
+
         db.collection("projects")
+          .doc(userx.uid)
+          .collection("userProjects")
           .add(project)
           .then(() => {
             this.loading = false;
@@ -98,6 +106,17 @@ export default {
             this.reset();
             this.$refs.form.resetValidation();
           });
+
+        // db.collection("projects")
+        //   .add(project)
+        //   .then(() => {
+        //     this.loading = false;
+        //     this.dialog = false;
+        //     this.$emit("projectAddedNotification");
+
+        //     this.reset();
+        //     this.$refs.form.resetValidation();
+        //   });
       }
     },
     reset() {
@@ -105,6 +124,7 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(["getDisplayName"]),
     formatDate() {
       return this.due ? moment(this.due).format("Do MMMM YYYY") : "";
     },
