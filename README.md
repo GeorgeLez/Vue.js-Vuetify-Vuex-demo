@@ -3,6 +3,8 @@
 ## Description
 This is a demo project to showcase my Vue.js skills, working with Vuetify and Vuex.
 
+Here is a link to the live version - https://vuetify-host.web.app/
+
 ## Project setup
 
 ```
