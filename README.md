@@ -1,4 +1,4 @@
-# setting-up-vuetify
+# Vue.js - Vuetify -  Vuex demo
 
 ## Project setup
 
