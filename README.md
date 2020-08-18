@@ -1,5 +1,8 @@
 # Vue.js - Vuetify -  Vuex demo
 
+## Description
+This is a demo project to showcase my Vue.js skills, working with Vuetify and Vuex.
+
 ## Project setup
 
 ```
